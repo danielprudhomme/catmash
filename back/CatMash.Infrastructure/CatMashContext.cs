@@ -13,20 +13,30 @@ namespace CatMash.Infrastructure
         }
 
         public DbSet<Cat> Cats { get; set; }
-        public DbSet<VoteStat> Votes { get; set; }
+        public DbSet<Vote> Votes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Cat>().ToTable("Cat");
             modelBuilder.Entity<Cat>()
-                .HasKey(x => x.Id);
-            modelBuilder.Entity<Cat>()
-                .Property(p => p.Id)
-                .ValueGeneratedNever();
+                .HasKey(c => c.Id);
 
-            modelBuilder.Entity<VoteStat>()
-                .HasKey(x => new { x.Cat1Id, x.Cat2Id });
+            modelBuilder.Entity<Vote>().ToTable("Vote");
+            modelBuilder.Entity<Vote>()
+                .HasKey(v => v.Id);
+
+            modelBuilder.Entity<VoteCat>()
+                .HasKey(vc => new { vc.CatId, vc.VoteId });
+            modelBuilder.Entity<VoteCat>()
+                .HasOne(vc => vc.Cat)
+                .WithMany(c => c.VoteCats)
+                .HasForeignKey(vc => vc.CatId);
+            modelBuilder.Entity<VoteCat>()
+                .HasOne(vc => vc.Vote)
+                .WithMany(v => v.VoteCats)
+                .HasForeignKey(vc => vc.VoteId);
         }
     }
 }

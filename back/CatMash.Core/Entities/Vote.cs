@@ -4,11 +4,10 @@ using System.Text;
 
 namespace CatMash.Core.Entities
 {
-    public class Cat
+    public class Vote
     {
-        public string Id { get; set; }
-        public string Url { get; set; }
-        public int Rating { get; set; }
+        public Guid Id { get; set; }
+        public int Occurence { get; set; }
         public ICollection<VoteCat> VoteCats { get; set; }
     }
 }
