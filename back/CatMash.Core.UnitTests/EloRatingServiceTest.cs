@@ -26,6 +26,5 @@ namespace CatMash.Core.UnitTests
             Assert.Equal(expectedRating1, newRatings.Rating1);
             Assert.Equal(expectedRating2, newRatings.Rating2);
         }
-
     }
 }
