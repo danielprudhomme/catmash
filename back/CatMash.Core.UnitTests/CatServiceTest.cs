@@ -21,11 +21,15 @@ namespace CatMash.Core.UnitTests
                 new Cat { Id = "2", Rating = 1 },
                 new Cat { Id = "3", Rating = 5 },
             };
-            var mockedRepo = new Mock<IBaseRepository<Cat>>();
-            mockedRepo.Setup(p => p.GetAll()).Returns(Task.FromResult(cats));
-            var mockedRatingService = new Mock<IRatingService>();
+            var catRepo = new Mock<IBaseRepository<Cat>>();
+            catRepo.Setup(p => p.GetAll()).Returns(Task.FromResult(cats));
 
-            var catService = new CatService(mockedRepo.Object, mockedRatingService.Object);
+            var voteRepo = new Mock<IBaseRepository<Vote>>();
+            var uow = new Mock<IUnitOfWork>();
+            var ratingService = new Mock<IRatingService>();
+            var latelierService = new Mock<LAtelierService>();
+
+            var catService = new CatService(catRepo.Object, voteRepo.Object, uow.Object, ratingService.Object, latelierService.Object);
 
             var rankedlist = await catService.GetRankedList();
             Assert.Equal(3, rankedlist.Count());

@@ -10,12 +10,22 @@ namespace CatMash.Core.Services
     public class CatService : ICatService
     {
         private readonly IBaseRepository<Cat> _catRepository;
+        private readonly IBaseRepository<Vote> _voteRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IRatingService _ratingService;
+        private readonly LAtelierService _latelierService;
 
-        public CatService(IBaseRepository<Cat> catRepository, IRatingService ratingService)
+        public CatService(IBaseRepository<Cat> catRepository,
+            IBaseRepository<Vote> voteRepository,
+            IUnitOfWork unitOfWork,
+            IRatingService ratingService,
+            LAtelierService latelierService)
         {
             _catRepository = catRepository;
+            _voteRepository = voteRepository;
+            _unitOfWork = unitOfWork;
             _ratingService = ratingService;
+            _latelierService = latelierService;
         }
 
         public async Task<IEnumerable<Cat>> GetRankedList()
@@ -24,9 +34,58 @@ namespace CatMash.Core.Services
             return cats.OrderByDescending(x => x.Rating);
         }
 
-        public Task Populate()
+        public async Task Populate()
         {
-            throw new NotImplementedException();
+            var dto = await _latelierService.ImportCats();
+
+            if (dto == null || dto.Cats == null)
+            {
+                throw new Exception("Wrong http response when importing cats from of WS l'atelier");
+            }
+
+            var cats = (await _catRepository.GetAll()).ToList();
+            foreach(var newCat in dto.Cats)
+            {
+                if (!cats.Any(x => x.Id == newCat.Id))
+                {
+                    var cat = new Cat
+                    {
+                        Id = newCat.Id,
+                        Url = newCat.Url,
+                        Rating = 1000
+                    };
+                    await _catRepository.Insert(cat);
+
+                    foreach (var otherCat in cats)
+                    {
+                        var vote = new Vote
+                        {
+                            Id = Guid.NewGuid(),
+                            Occurence = 0,
+                            VoteCats = new List<VoteCat>()
+                        };
+
+                        vote.VoteCats.Add(new VoteCat
+                        {
+                            CatId = otherCat.Id,
+                            VoteId = vote.Id,
+                            Order = 0
+                        });
+                        vote.VoteCats.Add(new VoteCat
+                        {
+                            CatId = cat.Id,
+                            VoteId = vote.Id,
+                            Order = 1
+                        });
+
+                        await _voteRepository.Insert(vote);
+                    }
+
+                    cats.Add(cat);
+                }
+            }
+
+            await _unitOfWork.Save();
         }
 
         public Task UpdateRating(Cat winner, Cat loser)

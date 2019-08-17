@@ -9,9 +9,9 @@ namespace CatMash.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContext _ctx;
+        private CatMashContext _ctx;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(CatMashContext context)
         {
             _ctx = context;
         }

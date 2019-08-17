@@ -11,9 +11,9 @@ namespace CatMash.Infrastructure.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private DbContext _ctx;
+        private CatMashContext _ctx;
 
-        public BaseRepository(DbContext context)
+        public BaseRepository(CatMashContext context)
         {
             _ctx = context;
         }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CatMash.Core.Entities;
 using CatMash.Core.Interfaces;
+using CatMash.Core.Services;
 using CatMash.Infrastructure;
 using CatMash.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +35,7 @@ namespace CatMash.API
             services.AddDbContext<CatMashContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -42,6 +43,14 @@ namespace CatMash.API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBaseRepository<Cat>, BaseRepository<Cat>>();
             services.AddScoped<IBaseRepository<Vote>, BaseRepository<Vote>>();
+
+            // Services
+            services.AddScoped<ICatService, CatService>();
+            services.AddScoped<IVoteService, VoteService>();
+            services.AddScoped<IRatingService, EloRatingService>();
+
+            // Http client
+            services.AddHttpClient<LAtelierService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
