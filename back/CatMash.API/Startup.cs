@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CatMash.Core.Entities;
 using CatMash.Core.Interfaces;
 using CatMash.Infrastructure;
@@ -32,6 +33,8 @@ namespace CatMash.API
         {
             services.AddDbContext<CatMashContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
