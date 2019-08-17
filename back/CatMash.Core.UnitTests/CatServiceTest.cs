@@ -29,9 +29,9 @@ namespace CatMash.Core.UnitTests
 
             var rankedlist = await catService.GetRankedList();
             Assert.Equal(3, rankedlist.Count());
-            Assert.Equal("1", cats.First().Id);
-            Assert.Equal("3", cats.ElementAt(1).Id);
-            Assert.Equal("2", cats.ElementAt(2).Id);
+            Assert.Equal("1", rankedlist.First().Id);
+            Assert.Equal("3", rankedlist.ElementAt(1).Id);
+            Assert.Equal("2", rankedlist.ElementAt(2).Id);
         }
     }
 }

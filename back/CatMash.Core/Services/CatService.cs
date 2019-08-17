@@ -2,7 +2,7 @@
 using CatMash.Core.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CatMash.Core.Services
@@ -18,9 +18,10 @@ namespace CatMash.Core.Services
             _ratingService = ratingService;
         }
 
-        public Task<IEnumerable<Cat>> GetRankedList()
+        public async Task<IEnumerable<Cat>> GetRankedList()
         {
-            throw new NotImplementedException();
+            var cats = await _catRepository.GetAll();
+            return cats.OrderByDescending(x => x.Rating);
         }
 
         public Task Populate()
