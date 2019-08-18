@@ -42,7 +42,7 @@ namespace CatMash.API
             // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBaseRepository<Cat>, BaseRepository<Cat>>();
-            services.AddScoped<IBaseRepository<Vote>, BaseRepository<Vote>>();
+            services.AddScoped<IVoteRepository, VoteRepository>();
 
             // Services
             services.AddScoped<ICatService, CatService>();

@@ -24,7 +24,7 @@ namespace CatMash.Core.UnitTests
             var catRepo = new Mock<IBaseRepository<Cat>>();
             catRepo.Setup(p => p.GetAll()).Returns(Task.FromResult(cats));
 
-            var voteRepo = new Mock<IBaseRepository<Vote>>();
+            var voteRepo = new Mock<IVoteRepository>();
             var uow = new Mock<IUnitOfWork>();
             var ratingService = new Mock<IRatingService>();
             var latelierService = new Mock<LAtelierService>();

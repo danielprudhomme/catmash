@@ -10,21 +10,18 @@ namespace CatMash.Core.Services
     public class CatService : ICatService
     {
         private readonly IBaseRepository<Cat> _catRepository;
-        private readonly IBaseRepository<Vote> _voteRepository;
+        private readonly IVoteRepository _voteRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IRatingService _ratingService;
         private readonly LAtelierService _latelierService;
 
         public CatService(IBaseRepository<Cat> catRepository,
-            IBaseRepository<Vote> voteRepository,
+            IVoteRepository voteRepository,
             IUnitOfWork unitOfWork,
-            IRatingService ratingService,
             LAtelierService latelierService)
         {
             _catRepository = catRepository;
             _voteRepository = voteRepository;
             _unitOfWork = unitOfWork;
-            _ratingService = ratingService;
             _latelierService = latelierService;
         }
 
@@ -86,11 +83,6 @@ namespace CatMash.Core.Services
             }
 
             await _unitOfWork.Save();
-        }
-
-        public Task UpdateRating(Cat winner, Cat loser)
-        {
-            throw new NotImplementedException();
         }
     }
 }

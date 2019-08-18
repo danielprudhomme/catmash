@@ -33,7 +33,7 @@ namespace CatMash.API.Controllers
         }
 
         [HttpPost]
-        public async Task<VoteViewModel> Post([FromBody] VoteResult result)
+        public async Task<VoteViewModel> Vote(VoteResult result)
         {
             await _voteService.HandleVote(result);
             return await GetNextVoteViewModel();

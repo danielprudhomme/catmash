@@ -20,13 +20,5 @@ namespace CatMash.Core.Interfaces
         /// </summary>
         /// <returns>List of cats</returns>
         Task<IEnumerable<Cat>> GetRankedList();
-
-        /// <summary>
-        /// Updates the ELO rating of the opponent cats
-        /// </summary>
-        /// <param name="winner"></param>
-        /// <param name="loser"></param>
-        /// <returns></returns>
-        Task UpdateRating(Cat winner, Cat loser);
     }
 }
