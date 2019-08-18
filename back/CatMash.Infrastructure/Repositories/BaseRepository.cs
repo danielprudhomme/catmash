@@ -23,7 +23,7 @@ namespace CatMash.Infrastructure.Repositories
             return _ctx.Set<T>().ToList();
         }
 
-        public virtual async Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includes)
+        public virtual async Task<IEnumerable<T>> GetAll(params string[] includes)
         {
             var result = _ctx.Set<T>().AsQueryable();
 
@@ -35,7 +35,7 @@ namespace CatMash.Infrastructure.Repositories
             return await result.ToListAsync();
         }
 
-        public virtual async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>> searchBy, params Expression<Func<T, object>>[] includes)
+        public virtual async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>> searchBy, params string[] includes)
         {
             var result = _ctx.Set<T>().Where(searchBy);
 
@@ -47,7 +47,7 @@ namespace CatMash.Infrastructure.Repositories
             return await result.ToListAsync();
         }
 
-        public virtual async Task<T> FindBy(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        public virtual async Task<T> FindBy(Expression<Func<T, bool>> predicate, params string[] includes)
         {
             var result = _ctx.Set<T>().Where(predicate);
 

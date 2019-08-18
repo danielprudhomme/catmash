@@ -25,12 +25,21 @@ namespace CatMash.Core.Services
             _latelierService = latelierService;
         }
 
+        /// <summary>
+        /// Returns the list of cats ordered by rating descending
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Cat>> GetRankedList()
         {
             var cats = await _catRepository.GetAll();
             return cats.OrderByDescending(x => x.Rating);
         }
 
+        /// <summary>
+        /// Import cats from l'atelier
+        /// For each new cat, create a vote between him and every other existing cat
+        /// </summary>
+        /// <returns></returns>
         public async Task Populate()
         {
             var dto = await _latelierService.ImportCats();

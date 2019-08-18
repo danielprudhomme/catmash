@@ -10,11 +10,11 @@ namespace CatMash.Core.Interfaces
     {
         Task<IEnumerable<T>> GetAll();
 
-        Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includes);
+        Task<IEnumerable<T>> GetAll(params string[] includes);
 
-        Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>> searchBy, params Expression<Func<T, object>>[] includes);
+        Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>> searchBy, params string[] includes);
 
-        Task<T> FindBy(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
+        Task<T> FindBy(Expression<Func<T, bool>> predicate, params string[] includes);
 
         Task Insert(T entity);
 
