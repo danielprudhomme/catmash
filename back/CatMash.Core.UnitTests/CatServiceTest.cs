@@ -26,10 +26,9 @@ namespace CatMash.Core.UnitTests
 
             var voteRepo = new Mock<IVoteRepository>();
             var uow = new Mock<IUnitOfWork>();
-            var ratingService = new Mock<IRatingService>();
             var latelierService = new Mock<LAtelierService>();
 
-            var catService = new CatService(catRepo.Object, voteRepo.Object, uow.Object, ratingService.Object, latelierService.Object);
+            var catService = new CatService(catRepo.Object, voteRepo.Object, uow.Object, latelierService.Object);
 
             var rankedlist = await catService.GetRankedList();
             Assert.Equal(3, rankedlist.Count());

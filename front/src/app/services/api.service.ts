@@ -24,7 +24,7 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/vote`, voteResult) as Observable<Vote>;
   }
 
-  getCatList(): Observable<Cat> {
-    return this.http.get(`${this.apiUrl}/cat`) as Observable<Cat>;
+  getCatList(): Observable<Cat[]> {
+    return this.http.get(`${this.apiUrl}/cat`) as Observable<Cat[]>;
   }
 }

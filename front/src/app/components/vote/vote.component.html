@@ -3,8 +3,8 @@
     <div class="vote-content">
         <ng-container *ngIf="vote; else loading">
             <div class="cat-card-wrapper">
-                <app-cat-card [cat]="vote.cat1" (onClicked)="onCatClicked(vote.cat1)"></app-cat-card>
-                <app-cat-card [cat]="vote.cat2" (onClicked)="onCatClicked(vote.cat2)"></app-cat-card>
+                <app-cat-card [cat]="vote.cat1" (onClicked)="onCatClicked(vote.cat1.id)"></app-cat-card>
+                <app-cat-card [cat]="vote.cat2" (onClicked)="onCatClicked(vote.cat2.id)"></app-cat-card>
             </div>
         </ng-container>
         <ng-template #loading>

@@ -1,0 +1,33 @@
+.score-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  .score-content {
+    flex: 1;
+  }
+
+  .score-footer {
+    margin-top: 30px;
+  }
+}
+
+.thumbnail {
+  height: 200px;
+  margin: 10px;
+}
+
+.table-container {
+  height: 400px;
+  overflow: auto;
+  table {
+    width: 100%;
+
+    .td-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
