@@ -1,1 +1,18 @@
-<p>vote works!</p>
+<div class="vote-container">
+
+    <div class="vote-content">
+        <ng-container *ngIf="vote; else loading">
+            <div class="cat-card-wrapper">
+                <app-cat-card [cat]="vote.cat1" (onClicked)="onCatClicked(vote.cat1)"></app-cat-card>
+                <app-cat-card [cat]="vote.cat2" (onClicked)="onCatClicked(vote.cat2)"></app-cat-card>
+            </div>
+        </ng-container>
+        <ng-template #loading>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+    </div>
+
+    <div class="vote-footer">
+        <button mat-raised-button color="primary" (click)="seeScore()">Voir les plus beaux chats</button>
+    </div>
+</div>

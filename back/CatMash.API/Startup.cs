@@ -29,6 +29,8 @@ namespace CatMash.API
 
         public IConfiguration Configuration { get; }
 
+        readonly string AllowCors = "_allowCors";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,9 +39,15 @@ namespace CatMash.API
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddCors(c =>
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                options.AddPolicy(AllowCors,
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                });
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -72,7 +80,7 @@ namespace CatMash.API
             }
 
             app.UseHttpsRedirection();
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors(AllowCors);
             app.UseMvc();
         }
     }

@@ -1,0 +1,27 @@
+.vote-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    .vote-content {
+        flex: 1;
+    }
+
+    .vote-footer {
+        margin-top: 30px;
+    }
+
+    .cat-card-wrapper {
+        flex: 1;
+        width: 100vw;
+        display: flex;
+        flex-flow: row nowrap;
+    
+        app-cat-card {
+            flex: 1;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
+}

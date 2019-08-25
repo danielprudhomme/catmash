@@ -1,0 +1,16 @@
+.cat-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mat-card {
+    cursor: pointer;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    img {
+      height: 300px;
+    }
+  }
+}
