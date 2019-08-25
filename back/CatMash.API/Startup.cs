@@ -37,6 +37,11 @@ namespace CatMash.API
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Repositories
@@ -67,6 +72,7 @@ namespace CatMash.API
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(options => options.AllowAnyOrigin());
             app.UseMvc();
         }
     }
